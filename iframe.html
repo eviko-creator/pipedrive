@@ -2,43 +2,115 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Form</title>
+  <title>Create a Job</title>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: Arial, sans-serif;
       padding: 20px;
-    }
-
-    input, button {
-      display: block;
-      width: 100%;
-      margin-bottom: 15px;
-      padding: 10px;
-      font-size: 16px;
+      background: #f9f9f9;
     }
 
     h2 {
       margin-bottom: 20px;
     }
+
+    .form-section {
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-bottom: 20px;
+      background: #fff;
+    }
+
+    .form-section h3 {
+      margin-top: 0;
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .form-section input,
+    .form-section select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .yellow-btn {
+      background-color: #ffd700;
+      color: black;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    .gray-btn {
+      background-color: #ddd;
+      color: black;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
 
-  <h2>Enter Deal Information</h2>
-  <form id="dealForm">
-    <input type="text" name="name" placeholder="Full Name" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="tel" name="phone" placeholder="Phone Number" required>
-    <button type="submit">Submit</button>
+  <h2>NEW Create a Job</h2>
+
+  <form id="jobForm">
+
+    <div class="form-section">
+      <h3>Client details</h3>
+      <input type="text" name="firstName" placeholder="First name" required>
+      <input type="text" name="lastName" placeholder="Last name">
+      <input type="tel" name="phone" placeholder="Phone number" required>
+      <input type="email" name="email" placeholder="Email" required>
+    </div>
+
+    <div class="form-section">
+      <h3>Job type</h3>
+      <select name="jobType" required>
+        <option value="">Select job type</option>
+        <option value="GL Pinellas">GL Pinellas</option>
+        <option value="Other">Other</option>
+      </select>
+      <input type="text" name="description" placeholder="Job description (optional)">
+    </div>
+
+    <div class="form-section">
+      <h3>Service location</h3>
+      <input type="text" name="address" placeholder="Address">
+      <input type="text" name="city" placeholder="City">
+    </div>
+
+    <div class="form-section">
+      <h3>Scheduled</h3>
+      <input type="date" name="date">
+      <input type="time" name="time">
+      <select name="technician">
+        <option value="">Select technician</option>
+        <option value="Tech A">Tech A</option>
+        <option value="Tech B">Tech B</option>
+      </select>
+    </div>
+
+    <div class="buttons">
+      <button type="submit" class="yellow-btn">Create job</button>
+      <button type="button" class="gray-btn">Save info</button>
+    </div>
+
   </form>
 
   <script>
-    const form = document.getElementById('dealForm');
+    const form = document.getElementById('jobForm');
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       const data = Object.fromEntries(new FormData(form).entries());
-      // Send form data to parent page
       parent.postMessage(data, '*');
     });
   </script>
