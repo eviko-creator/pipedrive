@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Main Page</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+    }
+    iframe {
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Test Form in Iframe</h1>
+
+  <iframe src="iframe.html" width="400" height="350"></iframe>
+
+  <script>
+    window.addEventListener('message', function(event) {
+      const data = event.data;
+      console.log('Data received from iframe:', data);
+
+      // Replace with your actual API token and company domain
+      const API_TOKEN = 'YOUR_API_TOKEN';
+      const companyDomain = 'yourcompany'; // e.g., 'testcompany'
+
+      const url = `https://${companyDomain}.pipedrive.com/api/v1/deals?api_token=${API_TOKEN}`;
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          title: `New Deal from ${data.name}`,
+          person_name: data.name,
+          phone: data.phone,
+          email: data.email
+        })
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log('Deal created in Pipedrive:', result);
+        alert('Deal submitted to Pipedrive!');
+      })
+      .catch(error => {
+        console.error('Error sending to Pipedrive:', error);
+        alert('There was an error submitting the deal.');
+      });
+    });
+  </script>
+
+</body>
+</html>
